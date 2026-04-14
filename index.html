@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>Marwan El Kallassi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --cream: #F5F0E8;
+            --ink: #1a1a1a;
+            --ink-light: #666;
+            --red: #C8102E;
+            --blue: #0A2463;
+            --amber: #D4920B;
+            --green: #1B5E37;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .page {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ——— Top Bar ——— */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1.5px solid var(--ink);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            opacity: 0;
+            animation: fadeIn 0.6s ease 0.1s forwards;
+        }
+        .topbar .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--red);
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* ——— Name ——— */
+        .name-block {
+            padding: 48px 0 20px;
+            border-bottom: 1.5px solid var(--ink);
+            opacity: 0;
+            animation: slideUp 0.7s ease 0.2s forwards;
+        }
+        .name-block h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 56px;
+            line-height: 0.95;
+            font-weight: 400;
+            letter-spacing: -2px;
+            margin-bottom: 4px;
+        }
+        .name-block h1 .italic {
+            font-style: italic;
+        }
+        .name-block .role {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--ink-light);
+            margin-top: 16px;
+        }
+
+        /* ——— Horizontal Stats ——— */
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            border-bottom: 1.5px solid var(--ink);
+            opacity: 0;
+            animation: slideUp 0.7s ease 0.35s forwards;
+        }
+        .stat {
+            padding: 18px 0;
+            text-align: center;
+            border-right: 1.5px solid var(--ink);
+        }
+        .stat:last-child { border-right: none; }
+        .stat-number {
+            font-family: 'Instrument Serif', serif;
+            font-size: 36px;
+            line-height: 1;
+            letter-spacing: -1px;
+        }
+        .stat-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--ink-light);
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        /* ——— Companies ——— */
+        .companies-section {
+            padding: 28px 0 0;
+            opacity: 0;
+            animation: slideUp 0.7s ease 0.45s forwards;
+        }
+        .section-head {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--ink-light);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .company {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            border-bottom: 1.5px solid var(--ink);
+            padding: 18px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .company:hover {
+            padding-left: 8px;
+        }
+        .company:active {
+            opacity: 0.7;
+        }
+
+        .company-color {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .company-content { flex: 1; }
+        .company-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+        }
+
+        .company h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 26px;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+        }
+
+        .company .countries {
+            font-size: 11px;
+            color: var(--ink-light);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .company .desc {
+            font-size: 13px;
+            color: var(--ink-light);
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+
+        .company .arrow-link {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--ink);
+            margin-top: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: gap 0.2s ease;
+        }
+        .company:hover .arrow-link { gap: 10px; }
+        .arrow-link svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* ——— Map Section ——— */
+        .map-section {
+            padding: 28px 0;
+            border-bottom: 1.5px solid var(--ink);
+            opacity: 0;
+            animation: slideUp 0.7s ease 0.55s forwards;
+        }
+        .map-dots {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 12px;
+        }
+        .map-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            border: 1.5px solid var(--ink);
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
+        }
+        .map-tag:hover {
+            background: var(--ink);
+            color: var(--cream);
+        }
+        .map-tag .flag { font-style: normal; font-size: 14px; }
+
+        /* ——— Contact Grid ——— */
+        .contact-section {
+            padding: 28px 0 0;
+            opacity: 0;
+            animation: slideUp 0.7s ease 0.65s forwards;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .contact-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 22px 16px;
+            border: 1.5px solid var(--ink);
+            background: transparent;
+            text-decoration: none;
+            color: var(--ink);
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            transform: translateY(100%);
+            transition: transform 0.25s ease;
+        }
+        .contact-btn:hover::before { transform: translateY(0); }
+        .contact-btn:hover { color: white; }
+        .contact-btn:active { transform: scale(0.97); }
+
+        .contact-btn.wa::before { background: #25d366; }
+        .contact-btn.wc::before { background: #09b83e; }
+        .contact-btn.ph::before { background: var(--blue); }
+        .contact-btn.em::before { background: var(--red); }
+
+        .contact-btn svg { width: 22px; height: 22px; position: relative; z-index: 1; }
+        .contact-btn span {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ——— Save Contact CTA ——— */
+        .save-cta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 20px;
+            background: var(--ink);
+            color: var(--cream);
+            border: none;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 28px;
+        }
+        .save-cta:hover {
+            background: var(--red);
+            letter-spacing: 5px;
+        }
+        .save-cta:active { transform: scale(0.98); }
+        .save-cta svg { width: 16px; height: 16px; }
+
+        /* ——— Chinaplas Banner ——— */
+        .event-strip {
+            border-top: 1.5px solid var(--ink);
+            border-bottom: 1.5px solid var(--ink);
+            padding: 14px 0;
+            overflow: hidden;
+            opacity: 0;
+            animation: slideUp 0.7s ease 0.75s forwards;
+        }
+        .marquee {
+            display: flex;
+            gap: 40px;
+            animation: marquee 15s linear infinite;
+            white-space: nowrap;
+        }
+        .marquee-item {
+            font-family: 'Instrument Serif', serif;
+            font-size: 16px;
+            font-style: italic;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+        .marquee-item .sep {
+            width: 6px;
+            height: 6px;
+            background: var(--red);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ——— Footer ——— */
+        .footer {
+            text-align: center;
+            padding: 24px 0 40px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--ink-light);
+            opacity: 0;
+            animation: fadeIn 0.6s ease 0.85s forwards;
+        }
+
+        /* ——— WeChat Modal ——— */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(26,26,26,0.85);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+        .overlay.open { opacity: 1; pointer-events: auto; }
+
+        .modal-card {
+            background: var(--cream);
+            padding: 40px 32px;
+            max-width: 340px;
+            width: 100%;
+            text-align: center;
+            transform: translateY(10px);
+            transition: transform 0.25s ease;
+        }
+        .overlay.open .modal-card { transform: translateY(0); }
+
+        .modal-card h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 28px;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+        .modal-card p {
+            font-size: 13px;
+            color: var(--ink-light);
+            margin-bottom: 20px;
+        }
+        .modal-id {
+            display: inline-block;
+            padding: 12px 28px;
+            border: 1.5px solid var(--ink);
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            user-select: all;
+        }
+        .modal-close {
+            display: inline-block;
+            padding: 12px 32px;
+            background: var(--ink);
+            color: var(--cream);
+            border: none;
+            font-family: inherit;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .modal-close:hover { background: var(--red); }
+
+        /* ——— Animations ——— */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Touch hover for mobile */
+        @media (hover: none) {
+            .contact-btn::before { display: none; }
+            .contact-btn:active { background: var(--ink); color: var(--cream); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page">
+
+    <!-- Top Bar -->
+    <div class="topbar">
+        <div><span class="dot"></span> Available for Business</div>
+        <div>2026</div>
+    </div>
+
+    <!-- Name -->
+    <div class="name-block">
+        <h1>Marwan<br><span class="italic">El Kallassi</span></h1>
+        <div class="role">CEO & Owner</div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stat">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Companies</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">5</div>
+            <div class="stat-label">Countries</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Industries</div>
+        </div>
+    </div>
+
+    <!-- Chinaplas Marquee -->
+    <div class="event-strip">
+        <div class="marquee">
+            <span class="marquee-item"><span class="sep"></span> CHINAPLAS 2026 &mdash; Shenzhen, China</span>
+            <span class="marquee-item"><span class="sep"></span> Plastics &bull; Packaging &bull; Trading</span>
+            <span class="marquee-item"><span class="sep"></span> CHINAPLAS 2026 &mdash; Shenzhen, China</span>
+            <span class="marquee-item"><span class="sep"></span> Plastics &bull; Packaging &bull; Trading</span>
+            <span class="marquee-item"><span class="sep"></span> CHINAPLAS 2026 &mdash; Shenzhen, China</span>
+            <span class="marquee-item"><span class="sep"></span> Plastics &bull; Packaging &bull; Trading</span>
+        </div>
+    </div>
+
+    <!-- Companies -->
+    <div class="companies-section">
+        <div class="section-head">Companies</div>
+
+        <a href="https://miroplastic.com" target="_blank" rel="noopener" class="company">
+            <div class="company-color" style="background: var(--blue)"></div>
+            <div class="company-content">
+                <div class="company-row">
+                    <h3>Miroplastic</h3>
+                    <span class="countries">LB / AO / SY</span>
+                </div>
+                <div class="desc">Plastics Manufacturing</div>
+                <div class="arrow-link">Visit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
+            </div>
+        </a>
+
+        <a href="https://detudo.ao" target="_blank" rel="noopener" class="company">
+            <div class="company-color" style="background: var(--amber)"></div>
+            <div class="company-content">
+                <div class="company-row">
+                    <h3>Detudo Packing</h3>
+                    <span class="countries">AO</span>
+                </div>
+                <div class="desc">All Types of Packaging Manufacturing</div>
+                <div class="arrow-link">Visit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
+            </div>
+        </a>
+
+        <div class="company" style="cursor: default;">
+            <div class="company-color" style="background: var(--green)"></div>
+            <div class="company-content">
+                <div class="company-row">
+                    <h3>SZS</h3>
+                    <span class="countries">PT</span>
+                </div>
+                <div class="desc">International Trading Company</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Global Presence -->
+    <div class="map-section">
+        <div class="section-head">Global Presence</div>
+        <div class="map-dots">
+            <div class="map-tag"><i class="flag">&#127473;&#127463;</i> Lebanon</div>
+            <div class="map-tag"><i class="flag">&#127462;&#127476;</i> Angola</div>
+            <div class="map-tag"><i class="flag">&#127480;&#127486;</i> Syria</div>
+            <div class="map-tag"><i class="flag">&#127477;&#127481;</i> Portugal</div>
+            <div class="map-tag"><i class="flag">&#127464;&#127475;</i> China</div>
+        </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="contact-section">
+        <div class="section-head">Get in Touch</div>
+        <div class="contact-grid">
+            <a href="https://wa.me/9613776882" target="_blank" rel="noopener" class="contact-btn wa">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                <span>WhatsApp</span>
+            </a>
+            <button onclick="openWeChat()" class="contact-btn wc">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05a6.3 6.3 0 01-.261-1.799c0-3.559 3.326-6.448 7.427-6.448.258 0 .507.022.76.042C16.737 4.964 13.084 2.188 8.691 2.188zm-3.11 5.28a1.03 1.03 0 110-2.06 1.03 1.03 0 010 2.06zm6.028 0a1.03 1.03 0 110-2.06 1.03 1.03 0 010 2.06zM23.995 15.588c0-3.246-3.13-5.883-6.993-5.883-3.867 0-6.998 2.637-6.998 5.883 0 3.247 3.131 5.884 6.998 5.884a8.37 8.37 0 002.33-.334.67.67 0 01.56.078l1.478.862a.248.248 0 00.128.041.226.226 0 00.224-.228c0-.055-.023-.11-.037-.164l-.3-1.145a.458.458 0 01.166-.517c1.417-1.09 2.444-2.741 2.444-4.477zm-9.34-.863a.838.838 0 110-1.676.838.838 0 010 1.676zm4.705 0a.838.838 0 110-1.676.838.838 0 010 1.676z"/></svg>
+                <span>WeChat</span>
+            </button>
+            <a href="tel:+9613776882" class="contact-btn ph">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                <span>Call</span>
+            </a>
+            <a href="mailto:marwan@miroplastic.com" class="contact-btn em">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+                <span>Email</span>
+            </a>
+        </div>
+
+        <button onclick="saveContact()" class="save-cta">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            Save Contact
+        </button>
+    </div>
+
+    <div class="footer">
+        Marwan El Kallassi &mdash; MMXXVI
+    </div>
+
+</div>
+
+<!-- WeChat Modal -->
+<div class="overlay" id="wechatModal" onclick="closeWeChat(event)">
+    <div class="modal-card">
+        <h3>WeChat</h3>
+        <p>Search this number to add me:</p>
+        <div class="modal-id">+961 377 6882</div>
+        <br><br>
+        <button class="modal-close" onclick="closeWeChat(event)">Close</button>
+    </div>
+</div>
+
+<script>
+function saveContact() {
+    const vcard = `BEGIN:VCARD
+VERSION:3.0
+N:El Kallassi;Marwan;;;
+FN:Marwan El Kallassi
+TITLE:CEO & Owner
+ORG:Miroplastic; Detudo Packing; SZS
+TEL;TYPE=CELL:+9613776882
+EMAIL:marwan@miroplastic.com
+URL:https://miroplastic.com
+URL:https://detudo.ao
+NOTE:CEO & Owner of Miroplastic (Lebanon\\, Angola\\, Syria)\\, Detudo Packing (Angola)\\, SZS (Portugal)
+END:VCARD`;
+    const blob = new Blob([vcard], { type: 'text/vcard' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Marwan_El_Kallassi.vcf';
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+function openWeChat() {
+    document.getElementById('wechatModal').classList.add('open');
+}
+function closeWeChat(e) {
+    if (e.target.id === 'wechatModal' || e.target.classList.contains('modal-close')) {
+        document.getElementById('wechatModal').classList.remove('open');
+    }
+}
+</script>
+
+</body>
+</html>
