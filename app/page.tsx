@@ -184,6 +184,20 @@ export default function Home() {
           <p>Search this number to add me</p>
           <div className="modal-id">+961 3 776 882</div>
           <br />
+          <button
+            type="button"
+            className="modal-copy"
+            onClick={(e) => {
+              e.stopPropagation();
+              navigator.clipboard.writeText("+9613776882").then(() => {
+                const btn = e.currentTarget;
+                btn.textContent = "Copied!";
+                setTimeout(() => { btn.textContent = "Copy Number"; }, 2000);
+              });
+            }}
+          >
+            Copy Number
+          </button>
           <button className="modal-close" type="button">
             Close
           </button>
